@@ -1,5 +1,5 @@
 const chatConfig = {
-  baseUrl: process.env.REACT_APP_CHAT_API_URL || "http://localhost:9090",
+  baseUrl: process.env.REACT_APP_CHAT_API_URL || "http://localhost:9090/travelPlanner",
   endpoints: {
     chat: "/chat"
   },

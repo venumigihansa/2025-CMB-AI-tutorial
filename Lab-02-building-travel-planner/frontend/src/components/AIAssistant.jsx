@@ -1,7 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { User } from '@asgardeo/react';
 import { ChatService } from '../services/chatService';
-import chatConfig from '../config/chat';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -230,13 +228,7 @@ const AIAssistant = () => {
                 >
                   <div className="message-avatar">
                     {message.role === 'user' ? (
-                      <User>
-                        {(user) => (
-                          <div className="user-avatar">
-                            {(user.displayName || user.given_name || user.username || 'U').charAt(0).toUpperCase()}
-                          </div>
-                        )}
-                      </User>
+                      <div className="user-avatar">G</div>
                     ) : (
                       <div className="assistant-avatar">
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

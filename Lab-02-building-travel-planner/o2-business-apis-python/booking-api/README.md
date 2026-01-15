@@ -1,0 +1,23 @@
+# Python Booking API
+
+FastAPI version of the hotel booking service. It loads the same mock data from the Ballerina `data_mappings.bal` file.
+
+## Setup
+
+```bash
+cd Lab-02-building-travel-planner/o2-business-apis-python/booking-api
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+## Run
+
+```bash
+uvicorn app:app --host 0.0.0.0 --port 9081
+```
+
+## Notes
+- Data is read from `Lab-02-building-travel-planner/o2-business-apis/booking-api/data_mappings.bal`.
+- CORS is configured for `http://localhost:3000`.
+- `x-jwt-assertion` is required for auth-protected endpoints (`/auth/profile`, `/bookings`, `/bookings/{id}`).
