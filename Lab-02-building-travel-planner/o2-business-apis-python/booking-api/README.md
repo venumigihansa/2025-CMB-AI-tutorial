@@ -14,10 +14,11 @@ pip install -r requirements.txt
 ## Run
 
 ```bash
+cd Lab-02-building-travel-planner/o2-business-apis-python/booking-api
 uvicorn app:app --host 0.0.0.0 --port 9081
 ```
 
 ## Notes
 - Data is read from `Lab-02-building-travel-planner/o2-business-apis/booking-api/data_mappings.bal`.
-- CORS is configured for `http://localhost:3000`.
+- CORS is configured for `http://localhost:3001`.
 - `x-jwt-assertion` is required for auth-protected endpoints (`/auth/profile`, `/bookings`, `/bookings/{id}`).

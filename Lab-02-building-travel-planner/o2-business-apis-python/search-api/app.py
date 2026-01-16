@@ -20,7 +20,7 @@ nearby_attractions: list[dict[str, Any]] = list(_nearby_attractions)
 app = FastAPI(title="Hotel Search API")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["http://localhost:3001"],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["Content-Type", "Authorization", "Accept"],

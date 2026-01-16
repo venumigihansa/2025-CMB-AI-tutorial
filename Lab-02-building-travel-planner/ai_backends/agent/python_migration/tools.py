@@ -222,7 +222,7 @@ def build_tools(settings: Settings):
     ) -> dict[str, Any]:
         """Create a booking via the booking API."""
         logger.info(
-            "create_booking_tool called: user_id=%s hotel_id=%s check_in_date=%s check_out_date=%s",
+            "create_booking_tool called: user_id=%s hotel_id=%s check_in_date=%s check_out_date=%s number_of_rooms=%s",
             userId,
             hotelId,
             checkInDate,

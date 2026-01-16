@@ -38,7 +38,7 @@ class ChatResponse(BaseModel):
 app = FastAPI(title="Travel Planner Agent")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["http://localhost:3001"],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["Content-Type", "Authorization", "Accept"],
@@ -62,7 +62,7 @@ def chat(request: ChatRequest) -> ChatResponse:
     state = _session_memory.get(session_id, {"messages": []})
     state["messages"].append(HumanMessage(content=_wrap_user_message(request.message)))
 
-    result = agent_graph.invoke(state)
+    result = agent_graph.invoke(state, config={"recursion_limit": 50})
     _session_memory[session_id] = result
 
     last_message = result["messages"][-1]

@@ -3,6 +3,19 @@
 ## Description
 Main agent for the travel planning application. This comprehensive AI agent uses multiple tools and external integrations to assist users in planning their perfect trip itineraries. The agent considers user preferences, hotel availability, and provides personalized recommendations.
 
+## Python Migration
+The FastAPI/LangGraph migration of this agent lives in `python_migration/`.
+
+Run it with:
+
+```bash
+cd Lab-02-building-travel-planner/ai_backends/agent/python_migration
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn app:app --host 0.0.0.0 --port 9090
+```
+
 ## LLM Pattern
 This project implements an **Advanced Multi-Tool Agent Pattern** where:
 - Complex travel planning logic with multiple external API integrations
@@ -43,6 +56,8 @@ Additionally, Go to VSCode Command palette(View -> Command Palette) and search f
 - `pineconeApiKey`, `pineconeServiceUrl`: Vector database access for policy and document retrieval
 - `hotelSearchApiUrl`: API endpoint for hotel search and availability checking
 - `bookingApiUrl`: API endpoint for creating hotel bookings
+- Initialize the personalization table with `resources/create_tables.sql` in the lab root before using profile features.
+- You can point `hotelSearchApiUrl` and `bookingApiUrl` to either the Ballerina services (`o2-business-apis/`) or the Python services (`o2-business-apis-python/`).
 
 ## Tools & Features
 - **Multi-API Integration**: Hotel search, booking, and policy management
