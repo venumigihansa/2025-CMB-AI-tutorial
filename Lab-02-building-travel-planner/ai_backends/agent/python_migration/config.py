@@ -19,6 +19,11 @@ class Settings:
     booking_api_url: str
     weather_api_key: str | None
     weather_api_base_url: str
+    pg_host: str
+    pg_port: int
+    pg_database: str
+    pg_user: str
+    pg_password: str | None
 
     @classmethod
     def from_env(cls) -> "Settings":
@@ -41,4 +46,9 @@ class Settings:
             booking_api_url=required("BOOKING_API_URL"),
             weather_api_key=os.getenv("WEATHER_API_KEY"),
             weather_api_base_url=os.getenv("WEATHER_API_BASE_URL", "http://api.weatherapi.com/v1"),
+            pg_host=required("PG_HOST"),
+            pg_port=int(os.getenv("PG_PORT", "5432")),
+            pg_database=required("PG_DATABASE"),
+            pg_user=required("PG_USER"),
+            pg_password=os.getenv("PG_PASSWORD"),
         )

@@ -3,6 +3,7 @@ from __future__ import annotations
 import logging
 from typing import Any
 
+import psycopg
 import requests
 from pinecone import Pinecone
 from langchain_core.messages import HumanMessage, SystemMessage
@@ -71,6 +72,34 @@ def _policy_llm(settings: Settings) -> ChatOpenAI:
 
 
 def build_tools(settings: Settings):
+    @tool
+    def get_user_profile_tool(user_id: str | None = None) -> str:
+        """Fetch personalization profile from Postgres."""
+        user_id = user_id or settings.user_id
+        logger.info("get_user_profile_tool called: user_id=%s", user_id)
+        try:
+            with psycopg.connect(
+                host=settings.pg_host,
+                port=settings.pg_port,
+                dbname=settings.pg_database,
+                user=settings.pg_user,
+                password=settings.pg_password or None,
+            ) as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        "SELECT activity_analysis FROM user_activities WHERE user_id = %s",
+                        (user_id,),
+                    )
+                    row = cur.fetchone()
+            if row and row[0]:
+                logger.info("get_user_profile_tool found personalization data.")
+                return row[0]
+            logger.info("get_user_profile_tool found no personalization data.")
+            return "No personalization found for this user."
+        except Exception:
+            logger.exception("get_user_profile_tool failed; continuing without personalization.")
+            return "Personalization unavailable; continue without it."
+
     @tool
     def query_hotel_policy_tool(question: str, hotel_id: str) -> str:
         """Retrieve hotel policy details for a given hotel ID."""
@@ -234,6 +263,7 @@ def build_tools(settings: Settings):
         return response.text
 
     return [
+        get_user_profile_tool,
         query_hotel_policy_tool,
         search_hotels_tool,
         get_hotel_info_tool,
